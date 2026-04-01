@@ -1,4 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
+@font-face {
+    font-family: 'GmarketSans';
+    src: url('/src/assets/GmarketSansTTFLight.ttf') format('truetype');
+    font-weight: 300;
+}
+
+@font-face {
+    font-family: 'GmarketSans';
+    src: url('/src/assets/GmarketSansTTFMedium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'GmarketSans';
+    src: url('/src/assets/GmarketSansTTFBold.ttf') format('truetype');
+    font-weight: 700;
+}
 
 :root {
     --bg:          #0a0a0f;
@@ -22,8 +39,8 @@
     --shadow:    0 8px 32px rgba(0,0,0,0.6);
     --glow:      0 0 20px rgba(108,99,255,0.35);
 
-    --font-display: 'Black Han Sans', sans-serif;
-    --font-body:    'Noto Sans KR', sans-serif;
+--font-display: 'GmarketSans', sans-serif;
+    --font-body:    'GmarketSans', sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -121,10 +138,24 @@ h1, h2, h3 { font-family: var(--font-display); letter-spacing: 0.02em; }
     padding: 3px 10px; border-radius: 99px;
     font-size: 0.75rem; font-weight: 700;
 }
+
+.badge-small {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 3px; border-radius: 99px;
+    font-size: 0.55rem; font-weight: 300;
+}
+
+.badge-large {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 3px 10px; border-radius: 99px;
+    font-size: 0.9rem; font-weight: 700;
+}
+
 .badge-primary { background: rgba(108,99,255,0.2); color: var(--primary); border: 1px solid rgba(108,99,255,0.3); }
 .badge-green   { background: rgba(6,214,160,0.15);  color: var(--green);   border: 1px solid rgba(6,214,160,0.3); }
 .badge-accent  { background: rgba(255,107,107,0.15); color: var(--accent);  border: 1px solid rgba(255,107,107,0.3); }
 .badge-gold    { background: rgba(255,209,102,0.15); color: var(--accent-gold); border: 1px solid rgba(255,209,102,0.3); }
+.badge-round    { border: 1px solid rgba(197, 197, 197, 0.87); }
 
 /* ── Layout ── */
 .page-center { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }

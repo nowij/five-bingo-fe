@@ -178,7 +178,7 @@ export default function LoginPage() {
                         background: 'linear-gradient(135deg, var(--primary), #a78bfa)',
                         boxShadow: 'var(--glow)', marginBottom: 18, fontSize: 34,
                     }}>
-                        🎯
+                        🖐️
                     </div>
                     <h1 style={{ fontSize: '2.6rem', lineHeight: 1, marginBottom: 10 }}>빙고!</h1>
                     <p style={{ color: 'var(--text-2)', fontSize: '0.92rem' }}>

@@ -34,7 +34,7 @@ export default function LobbyPage() {
                 {/* Header */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 36 }}>
                     <div>
-                        <h1 style={{ fontSize: '2rem' }}>🎯 빙고</h1>
+                        <h1 style={{ fontSize: '2rem' }}>빙고</h1>
                         <p style={{ color: 'var(--text-2)', fontSize: '0.85rem', marginTop: 4 }}>
                             안녕하세요,{' '}
                             <span style={{ color: 'var(--primary)', fontWeight: 700 }}>{user?.nickname}</span>님!
@@ -58,7 +58,7 @@ export default function LobbyPage() {
                             <label className="form-label">빙고 주제</label>
                             <input
                                 className="input"
-                                placeholder="예: 좋아하는 음식, 여행지, 드라마 제목..."
+                                placeholder="ex. 영화, 드라마, 과자 등..."
                                 value={topic}
                                 onChange={(e) => { setTopic(e.target.value); setError(''); }}
                                 maxLength={50}
@@ -69,7 +69,7 @@ export default function LobbyPage() {
                         </div>
                         {error && <p className="error-text">⚠ {error}</p>}
                         <button className="btn btn-primary" type="submit" disabled={loading}>
-                            {loading ? '생성 중...' : '🎮 방 만들기'}
+                            {loading ? '생성 중...' : '방 만들기'}
                         </button>
                     </form>
                 </div>

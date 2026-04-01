@@ -107,27 +107,32 @@ export default function WaitingRoomPage() {
     return (
         <div style={{ minHeight: '100vh', padding: '32px 24px', maxWidth: 640, margin: '0 auto' }}>
             {/* Header */}
-            <div className="animate-fadeInUp" style={{ marginBottom: 32 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-                    <span style={{ fontSize: 28 }}>🎯</span>
-                    <h1 style={{ fontSize: '1.8rem' }}>대기실</h1>
+            <div className="animate-fadeInUp" style={{marginBottom: 32}}>
+                <div style={{display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8}}>
+                    <h1 style={{fontSize: '1.8rem'}}>대기실</h1>
                     <span className="badge badge-primary">대기 중</span>
                 </div>
-                <div style={{
-                    background: 'var(--bg-elevated)', borderRadius: 'var(--radius)', padding: '10px 16px',
-                    border: '1px solid var(--border)', display: 'inline-flex', alignItems: 'center', gap: 8,
-                }}>
-                    <span style={{ color: 'var(--text-2)', fontSize: '0.82rem' }}>주제</span>
-                    <span style={{ fontWeight: 700, color: 'var(--accent-gold)', fontSize: '1rem' }}>{room.topic}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 36 }}>
+                    <div style={{
+                        background: 'var(--bg-elevated)', borderRadius: 'var(--radius)', padding: '10px 16px',
+                        border: '1px solid var(--border)', display: 'inline-flex', alignItems: 'center', gap: 8,
+                    }}>
+                        <span style={{color: 'var(--text-2)', fontSize: '0.82rem'}}>주제</span>
+                        <span
+                            style={{fontWeight: 700, color: 'var(--accent-gold)', fontSize: '1rem'}}>{room.topic}</span>
+                    </div>
+                    <button className="btn btn-ghost" style={{padding: '8px 16px', fontSize: '0.85rem'}}>
+                        로그아웃
+                    </button>
                 </div>
             </div>
 
             {/* Invite Link */}
-            <div className="card" style={{ padding: 20, marginBottom: 20 }}>
-                <p style={{ color: 'var(--text-2)', fontSize: '0.82rem', marginBottom: 10, fontWeight: 600 }}>
-                    🔗 초대 링크
+            <div className="card" style={{padding: 20, marginBottom: 20}}>
+                <p style={{color: 'var(--text-2)', fontSize: '0.82rem', marginBottom: 10, fontWeight: 600}}>
+                    초대 링크
                 </p>
-                <div style={{ display: 'flex', gap: 10 }}>
+                <div style={{display: 'flex', gap: 10}}>
                     <div style={{
                         flex: 1, padding: '10px 14px', background: 'var(--bg)', border: '1px solid var(--border)',
                         borderRadius: 'var(--radius)', fontSize: '0.82rem', color: 'var(--text-2)',
@@ -191,7 +196,7 @@ export default function WaitingRoomPage() {
                         onClick={handleStart}
                         disabled={room.players.length < 2}
                     >
-                        🚀 게임 시작
+                        게임 시작
                     </button>
                     {room.players.length < 2 && (
                         <p style={{ textAlign: 'center', color: 'var(--text-2)', fontSize: '0.82rem' }}>

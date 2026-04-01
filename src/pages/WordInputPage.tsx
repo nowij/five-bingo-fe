@@ -101,11 +101,10 @@ export default function WordInputPage() {
             {/* Header */}
             <div className="animate-fadeInUp" style={{ marginBottom: 24 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                    <span style={{ fontSize: 24 }}>📝</span>
                     <h1 style={{ fontSize: '1.6rem' }}>단어 입력</h1>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
-                    <span className="badge badge-primary">주제: {room.topic}</span>
+                    <span className="badge-large badge-primary">주제: {room.topic}</span>
                     <span style={{ color: 'var(--text-2)', fontSize: '0.85rem' }}>
             주제에 맞는 단어를 25칸에 모두 입력하세요
           </span>
@@ -128,10 +127,12 @@ export default function WordInputPage() {
                                 border: `1px solid ${status === 'READY' ? 'rgba(6,214,160,0.4)'
                                     : status === 'WORD_DONE' ? 'rgba(108,99,255,0.4)' : 'var(--border)'}`,
                             }}>
-                                <span>{status === 'READY' ? '✅' : status === 'WORD_DONE' ? '📝' : '⏳'}</span>
-                                <span style={{ fontWeight: 600 }}>{p.nickname}</span>
+                                <span className={`badge-small badge-round ${status === 'WORD_DONE' ? 'badge-green' : ''}`}>
+                                    {status === 'READY' ? '준비완료' : status === 'WORD_DONE' ? '입력완료' : '입력중'}
+                                </span>
+                                <span style={{fontWeight: 600}}>{p.nickname}</span>
                                 {p.nickname === myNickname && (
-                                    <span style={{ color: 'var(--primary)', fontSize: '0.72rem' }}>(나)</span>
+                                    <span style={{color: 'var(--primary)', fontSize: '0.72rem'}}>(나)</span>
                                 )}
                             </div>
                         );
@@ -140,7 +141,7 @@ export default function WordInputPage() {
             </div>
 
             {/* Board Grid */}
-            <div className="card-elevated" style={{ padding: 20, marginBottom: 20 }}>
+            <div className="card-elevated" style={{padding: 20, marginBottom: 20 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
                     <h2 style={{ fontSize: '1rem' }}>빙고판 작성</h2>
                     <span style={{ fontSize: '0.85rem', fontWeight: 700, color: allFilled ? 'var(--green)' : 'var(--accent-gold)' }}>
@@ -159,7 +160,8 @@ export default function WordInputPage() {
                             onChange={(e) => handleWordChange(i, e.target.value)}
                             placeholder={String(i + 1)}
                             style={{
-                                padding: '10px 6px', textAlign: 'center',
+                                width:'100%',
+                                padding: '12px 6px', textAlign: 'center',
                                 background: w.trim() ? 'rgba(108,99,255,0.1)' : 'var(--bg)',
                                 border: `1px solid ${w.trim() ? 'var(--primary-dim)' : 'var(--border)'}`,
                                 borderRadius: 8, color: 'var(--text-1)',
