@@ -5,6 +5,8 @@ import { getRoomByCode, joinAsUser, startWordInput } from '../api/room';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { RoomResponse, GameEvent } from '../types';
 
+const POLL_INTERVAL = 3000; // WebSocket 이벤트 못 받을 때 폴백용 폴링
+
 export default function WaitingRoomPage() {
     const { inviteCode }      = useParams<{ inviteCode: string }>();
     const navigate            = useNavigate();
@@ -15,7 +17,10 @@ export default function WaitingRoomPage() {
     const [error, setError]   = useState('');
     // ★ navigate를 ref로 보관해서 loadRoom 의존성 제거
     const navigateRef = useRef(navigate);
-    useEffect(() => { navigateRef.current = navigate; }, [navigate]);
+    const inviteCodeRef       = useRef(inviteCode);
+
+    useEffect(() => { navigateRef.current    = navigate;    }, [navigate]);
+    useEffect(() => { inviteCodeRef.current  = inviteCode;  }, [inviteCode]);
 
     const inviteLink = `${window.location.origin}/join/${inviteCode}`;
     const isHost = room != null && user != null && room.hostNickname === user.nickname;
@@ -39,7 +44,8 @@ export default function WaitingRoomPage() {
             }
 
             // ★ 상태 변화에 따라 즉시 페이지 이동
-            if (r.status === 'WORD_INPUT')  navigateRef.current(`/word-input/${inviteCode}`);
+            if (r.status === 'WORD_INPUT')
+                navigateRef.current(`/word-input/${inviteCode}`);
             if (r.status === 'IN_PROGRESS' || r.status === 'FINISHED')
                 navigateRef.current(`/game/${inviteCode}`);
         } catch {
@@ -57,21 +63,29 @@ export default function WaitingRoomPage() {
         init();
     }, [inviteCode, user, loadRoom]);
 
+    // ── 폴링: WS 이벤트 유실 대비 3초마다 방 상태 확인 ─────
+    useEffect(() => {
+        const timer = setInterval(() => {
+            loadRoom();
+        }, POLL_INTERVAL);
+        return () => clearInterval(timer);
+    }, [loadRoom]);
+
     // ★ WebSocket 이벤트 수신 시 loadRoom 호출 → 상태 변화 감지 후 자동 이동
     const onPlayersEvent = useCallback((event: GameEvent) => {
-        console.log('WaitingRoom players event:', event.type, event.message);
         loadRoom();
     }, [loadRoom]);
 
     const { publish } = useWebSocket({ roomId: room?.roomId, onPlayersEvent });
 
-    // 입장 알림 전송
+    // 입장 알림
     useEffect(() => {
         if (room?.roomId && myPlayerId) {
             publish(`/app/room/${room.roomId}/enter`, { playerId: myPlayerId });
         }
     }, [room?.roomId, myPlayerId, publish]);
 
+    // ── 방장 게임 시작 ────────────────────────────────────
     const handleStart = async () => {
         if (!room) return;
         try {
@@ -159,7 +173,7 @@ export default function WaitingRoomPage() {
                         <div key={p.playerId} style={{
                             display: 'flex', alignItems: 'center', gap: 12,
                             padding: '12px 16px', background: 'var(--bg)', borderRadius: 'var(--radius)',
-                            border: `1px solid ${p.nickname === myNickname ? 'var(--primary)' : 'var(--border)'}`,
+                            border: `1px solid ${p.nickname === myNickname ? 'var(--primary)' : 'var(--border)'}`,transition: 'all 0.3s',
                         }}>
                             <div style={{
                                 width: 36, height: 36, borderRadius: '50%', flexShrink: 0,

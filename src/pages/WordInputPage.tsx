@@ -5,6 +5,8 @@ import { useAuth } from '../context/AuthContext';
 import { useWebSocket } from '../hooks/useWebSocket';
 import { RoomResponse, PlayerBingoState, GameEvent } from '../types';
 
+const POLL_INTERVAL = 3000;
+
 export default function WordInputPage() {
     const { inviteCode }              = useParams<{ inviteCode: string }>();
     const navigate                    = useNavigate();
@@ -45,6 +47,12 @@ export default function WordInputPage() {
     }, [inviteCode]);
 
     useEffect(() => { loadRoom(); }, [loadRoom]);
+
+    // ── 폴링: IN_PROGRESS 전환 감지 ───────────────────────
+    useEffect(() => {
+        const timer = setInterval(() => { loadRoom(); }, POLL_INTERVAL);
+        return () => clearInterval(timer);
+    }, [loadRoom]);
 
     // ★ WS 이벤트 수신 시 방 상태 재조회
     const onPlayersEvent = useCallback((_event: GameEvent) => {
