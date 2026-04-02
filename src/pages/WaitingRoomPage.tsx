@@ -72,7 +72,7 @@ export default function WaitingRoomPage() {
     }, [loadRoom]);
 
     // ★ WebSocket 이벤트 수신 시 loadRoom 호출 → 상태 변화 감지 후 자동 이동
-    const onPlayersEvent = useCallback((event: GameEvent) => {
+    const onPlayersEvent = useCallback((_event: GameEvent) => {
         loadRoom();
     }, [loadRoom]);
 
