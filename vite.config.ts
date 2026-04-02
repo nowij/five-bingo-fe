@@ -7,11 +7,13 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'http://localhost:8080',
+        // target: 'http://localhost:8080',
+        target: 'https://five-bingo.onrender.com',
         changeOrigin: true,
       },
       '/ws': {
-        target: 'http://localhost:8080',
+        // target: 'http://localhost:8080',
+        target: 'https://five-bingo.onrender.com',
         changeOrigin: true,
         ws: true,
       },
